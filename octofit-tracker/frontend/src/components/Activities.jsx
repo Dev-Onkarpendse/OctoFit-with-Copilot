@@ -2,6 +2,9 @@ import { useEffect, useState } from 'react'
 import { fetchCollection } from '../api.js'
 
 const activityLabels = { running: 'Run', walking: 'Walk', strength: 'Strength', cycling: 'Ride', other: 'Other' }
+const activitiesEndpoint = import.meta.env.VITE_CODESPACE_NAME
+  ? `https://${import.meta.env.VITE_CODESPACE_NAME}-8000.app.github.dev/api/activities/`
+  : 'http://localhost:8000/api/activities/'
 
 function Activities() {
   const [activities, setActivities] = useState([])
@@ -9,7 +12,7 @@ function Activities() {
   const [error, setError] = useState('')
 
   useEffect(() => {
-    fetchCollection('activities')
+    fetchCollection('activities', activitiesEndpoint)
       .then((items) => { setActivities(items); setStatus('ready') })
       .catch((loadError) => { setError(loadError.message); setStatus('error') })
   }, [])
