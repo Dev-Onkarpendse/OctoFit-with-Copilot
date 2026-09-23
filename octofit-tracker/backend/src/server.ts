@@ -4,6 +4,9 @@ import { connectDatabase } from './config/database.js';
 
 const app = express();
 const port = Number(process.env.PORT || 8000);
+const apiBaseUrl = process.env.CODESPACE_NAME
+  ? `https://${process.env.CODESPACE_NAME}-8000.app.github.dev`
+  : `http://localhost:${port}`;
 const allowedOrigin = process.env.FRONTEND_URL || '*';
 
 app.use((request, response, next) => {
@@ -23,7 +26,7 @@ async function startServer() {
   try {
     await connectDatabase();
     app.listen(port, () => {
-      console.log(`OctoFit API listening on port ${port}`);
+      console.log(`OctoFit API listening at ${apiBaseUrl}/api`);
     });
   } catch (error) {
     console.error('Unable to connect to MongoDB:', error);
