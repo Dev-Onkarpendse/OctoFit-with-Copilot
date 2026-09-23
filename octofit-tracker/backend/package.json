@@ -6,7 +6,9 @@
   "scripts": {
     "build": "tsc --noEmit",
     "typecheck": "tsc --noEmit",
-    "seed": "tsx src/scripts/seed.ts"
+    "seed": "tsx src/scripts/seed.ts",
+    "start": "tsx src/server.ts",
+    "dev": "tsx watch src/server.ts"
   },
   "dependencies": {
     "express": "^5.2.1",
